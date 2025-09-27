@@ -1,5 +1,5 @@
 import express from 'express'
-// import cookieParser from "cookie-parser"
+import cookieParser from "cookie-parser"
 import cors from 'cors'
 
 
@@ -23,22 +23,15 @@ app.use(express.urlencoded({
 }))
 
 // Parse cookies in incoming requests
-// app.use(cookieParser())
+app.use(cookieParser())
 
 app.get('/',(req,res)=>{
     res.send('mockly app runing at this port')
 })
 import userRoute from './routes/user.routes.js'
-// import adminRoute from './routes/admin.routes.js'
-// import postroute from './routes/post.routes.js'
-// import bookmarkroute from './routes/bookmark.routes.js'
-// import likeroute from './routes/like.routes.js'
-// import commentroute from './routes/comment.routes.js'
+import interviewRoutes from './routes/interview.routes.js';
 app.use('/api/v1/user',userRoute)
-// app.use('/api/v1/admin',adminRoute)
-// app.use('/api/v1/post',postroute)
-// app.use('/api/v1/bookmark',bookmarkroute)
-// app.use('/api/v1/like',likeroute)
-// app.use('/api/v1/comment',commentroute)
+app.use('/api/v1/interview', interviewRoutes);
+
 
 export {app}
