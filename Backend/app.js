@@ -30,8 +30,10 @@ app.get('/',(req,res)=>{
 })
 import userRoute from './routes/user.routes.js'
 import interviewRoutes from './routes/interview.routes.js';
+import dashboardRoutes from './routes/dashboard.routes.js'
 app.use('/api/v1/user',userRoute)
 app.use('/api/v1/interview', interviewRoutes);
+app.use('/api/v1/dashboard', dashboardRoutes);
 
 
 export {app}
