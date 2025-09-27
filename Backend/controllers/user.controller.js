@@ -125,3 +125,47 @@ export const Logout = async (req, res) => {
     }
 }
 
+// UPDATE USER PROFILE
+export const updateProfile = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { techStack, experience, currentRole, location, bio, skills, linkedin, github } = req.body;
+        
+        const user = await User.findByIdAndUpdate(
+            userId,
+            {
+                $set: {
+                    'profile.techStack': techStack || "",
+                    'profile.experience': experience || "",
+                    'profile.currentRole': currentRole || "",
+                    'profile.location': location || "",
+                    'profile.bio': bio || "",
+                    'profile.skills': skills || "",
+                    'profile.linkedin': linkedin || "",
+                    'profile.github': github || ""
+                }
+            },
+            { new: true }
+        ).select('-password -verificationCode -verificationCodeExpires -createdAt -updatedAt -__v');
+        if(!user){
+             res.status(404).json({
+            success: false,
+            message: "User not found",
+        });
+        }
+        res.status(200).json({
+            success: true,
+            message: "Profile updated successfully",
+            data: {
+                user: user
+            }
+        });
+        
+    } catch (error) {
+        console.error('Update profile error:', error);
+        res.status(500).json({
+            message: "Failed to update profile: " + error.message,
+            success: false
+        });
+    }
+};
