@@ -9,7 +9,7 @@ const app = express();
 
 // CORS configuration
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: ["http://localhost:5173", "https://interview-prep-three-wheat.vercel.app/"],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Authorization', 'X-Refresh-Token', 'Content-Type'],
   credentials: true
