@@ -11,7 +11,7 @@ const sendEmail = async (to, subject, htmlContent) => {
     });
 
     await transporter.sendMail({
-      from: `"Mockly" <${process.env.EMAIL_USER}>`,
+      from: `"InterviewPrep" <${process.env.EMAIL_USER}>`,
       to,
       subject,
       html: htmlContent, // ✅ send styled HTML

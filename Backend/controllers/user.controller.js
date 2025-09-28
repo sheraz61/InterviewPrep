@@ -28,10 +28,10 @@ export const registerUser = async (req, res) => {
         // send email
        await sendEmail(
   email,
-  "Mockly - Verify your Email",
+  "InterviewPrep - Verify your Email",
   `
   <div style="font-family: Arial, sans-serif; background-color: #ffffff; padding: 20px; text-align: center; border: 1px solid #000000; border-radius: 8px; max-width: 500px; margin: auto;">
-    <h2 style="color: #000000; margin-bottom: 10px;">Mockly</h2>
+    <h2 style="color: #000000; margin-bottom: 10px;">InterviewPrep</h2>
     <p style="color: #333333; font-size: 16px; margin-bottom: 20px;">
       Please verify your email to complete registration.
     </p>
@@ -44,7 +44,7 @@ export const registerUser = async (req, res) => {
     </p>
     <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
     <p style="color: #888888; font-size: 12px;">
-      &copy; ${new Date().getFullYear()} Mockly. All rights reserved.
+      &copy; ${new Date().getFullYear()} InterviewPrep. All rights reserved.
     </p>
   </div>
   `
@@ -103,6 +103,62 @@ if(!email||!code){
     } catch (error) {
         res.status(500).json({ message: error.message, success: false });
     }
+};
+
+// 📌 Resend OTP Controller
+export const resendOTP = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (user.isVerified) {
+      return res.status(400).json({ message: "User is already verified" });
+    }
+
+    // Generate new 4-digit OTP
+    const newOTP = Math.floor(1000 + Math.random() * 9000);
+
+    // Save OTP and expiration (e.g., 10 min)
+    user.verificationCode = newOTP;
+    user.verificationCodeExpires = Date.now() + 10 * 60 * 1000;
+    await user.save();
+    await sendEmail(
+        email,
+        "InterviewPrep - Resend Verification Code",
+        `
+        <div style="font-family: Arial, sans-serif; background-color: #ffffff; padding: 20px; text-align: center; border: 1px solid #000000; border-radius: 8px; max-width: 500px; margin: auto;">
+          <h2 style="color: #000000; margin-bottom: 10px;">InterviewPrep</h2>
+          <p style="color: #333333; font-size: 16px; margin-bottom: 20px;">
+            Please verify your email to complete registration.
+          </p>
+          <div style="background-color: #000000; color: #ffffff; padding: 15px; font-size: 22px; font-weight: bold; border-radius: 6px; display: inline-block; letter-spacing: 4px;">
+            ${newOTP}
+          </div>
+          <p style="color: #555555; font-size: 14px; margin-top: 20px;">
+            Enter this code in the app to activate your account.<br>
+            If you didn’t request this, you can safely ignore this email.
+          </p>
+          <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+          <p style="color: #888888; font-size: 12px;">
+            &copy; ${new Date().getFullYear()} InterviewPrep. All rights reserved.
+          </p>
+        </div>
+        `
+      );
+    res.status(200).json({ message: "New OTP sent to your email" });
+  } catch (error) {
+    console.error("Resend OTP Error:", error);
+    res.status(500).json({ message: "Server error, try again later" });
+  }
 };
 
 // LOGIN user

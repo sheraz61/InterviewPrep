@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, verifyEmail,loginUser, Logout, updateProfile, getMyProfile, 
+import { registerUser, verifyEmail,loginUser, Logout, updateProfile, getMyProfile, resendOTP,
     getUserProfile,  } from "../controllers/user.controller.js";
 import isAuth from "../middelwares/auth.js";
 
@@ -10,6 +10,7 @@ router.post("/verify", verifyEmail);
 router.post("/login", loginUser);
 router.get("/logout", Logout);
 router.put('/profile', isAuth, updateProfile);
+router.post("/resend", resendOTP);
 // Get logged-in user's profile (protected)
 router.get('/my-profile', isAuth, getMyProfile);
 // Get specific user's public profile
