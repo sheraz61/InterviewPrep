@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-const sendEmail = async (to, subject, text) => {
+const sendEmail = async (to, subject, htmlContent) => {
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail", // or use your SMTP
@@ -14,7 +14,7 @@ const sendEmail = async (to, subject, text) => {
       from: `"Mockly" <${process.env.EMAIL_USER}>`,
       to,
       subject,
-      text,
+      html: htmlContent, // ✅ send styled HTML
     });
 
     console.log("Email sent successfully");

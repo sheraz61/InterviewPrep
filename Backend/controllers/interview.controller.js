@@ -202,10 +202,7 @@ export const getResults = async (req, res) => {
           percentage: Math.round((evaluation.score / 10) * 100),
           totalQuestions: interview.questions.length,
           completedAt: interview.updatedAt,
-          questionsAndAnswers: interview.questions.map(q => ({
-            question: q.question,
-            answer: q.answer
-          }))
+         
         }
       });
       
@@ -231,10 +228,6 @@ export const getResults = async (req, res) => {
           percentage: Math.round((fallbackEvaluation.score / 10) * 100),
           totalQuestions: interview.questions.length,
           completedAt: interview.updatedAt,
-          questionsAndAnswers: interview.questions.map(q => ({
-            question: q.question,
-            answer: q.answer
-          }))
         }
       });
     }

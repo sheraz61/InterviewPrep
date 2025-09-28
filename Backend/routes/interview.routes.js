@@ -9,7 +9,7 @@ import isAuth from "../middelwares/auth.js";
 
 const router = express.Router();
 router.post('/start',isAuth, startInterview);
-router.post('/answer/:id',isAuth, submitAnswer);
+router.post('/submit/:id',isAuth, submitAnswer);
 router.get('/results/:interviewId',isAuth, getResults);
 router.get('/history',isAuth, getInterviewHistory);
 export default router;
