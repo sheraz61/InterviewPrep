@@ -53,16 +53,6 @@ const Home = () => {
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-pink-500 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity"></div>
               </Link>
-              
-              <Link 
-                to="/interview" 
-                className="group border-2 border-white/30 text-white px-8 py-3.5 rounded-xl font-bold text-lg hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-sm"
-              >
-                <span className="flex items-center">
-                  Start Free 
-                  <span className="ml-2 text-xl group-hover:animate-pulse">🎤</span>
-                </span>
-              </Link>
             </div>
 
             {/* Trust Indicators */}

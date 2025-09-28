@@ -13,7 +13,7 @@ const Header = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate('/home');
   };
 
   const isActiveLink = (path) => {
@@ -47,7 +47,11 @@ const Header = () => {
               </span>
             </Link>
             
-            <Link 
+           
+            
+            {isAuthenticated ? (
+              <>
+               <Link 
               to="/interview" 
               className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${isActiveLink('/interview')}`}
             >
@@ -56,9 +60,6 @@ const Header = () => {
                 <span>Interview</span>
               </span>
             </Link>
-            
-            {isAuthenticated ? (
-              <>
                 <Link 
                   to="/dashboard" 
                   className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${isActiveLink('/dashboard')}`}
