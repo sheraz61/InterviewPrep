@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api/v1/user';
+const API_URL = 'https://interviewprep.up.railway.app/api/v1/user';
 
 // Get user's own profile
 export const getMyProfile = createAsyncThunk(

@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api/v1/interview';
+const API_URL = 'https://interviewprep.up.railway.app/api/v1/interview';
 
 // Start new interview
 export const startInterview = createAsyncThunk(
