@@ -9,7 +9,7 @@ const app = express();
 
 // CORS configuration
 app.use(cors({
-  origin: ['http://localhost:5173','https://interview-p.netlify.app/'],
+  origin: 'https://interview-p.netlify.app/',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Authorization', 'X-Refresh-Token', 'Content-Type'],
   credentials: true
